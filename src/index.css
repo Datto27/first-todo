@@ -107,10 +107,15 @@ body {
 }
 .edit-btn {color: lime;}
 .delete-btn {color: red;}
-.text {
-  color: rgb(90, 90, 90);
+.item-content {
   height: 0;
   overflow: hidden;
+}
+.show-text {
+  height: auto;
+}
+.text {
+  color: rgb(90, 90, 90);
 }
 .new-input {
   resize: none;

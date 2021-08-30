@@ -7,7 +7,7 @@ export const TodoList = ({data, deleteItem}) => {
             isActive, setIsActive} = useGlobalContext()
     const [curentItemID, setCurrentItemID] = useState("")
     const [newText, setNewText] = useState("")
-    const elementHeight = useRef(null)
+    const elementHeightRef = useRef(null)
     // se function achvenebs mxolod axali inputis form-s da moaqvs curent itemis value(text)
     const showInput = (id) => {
         setCurrentItemID(id)
@@ -17,16 +17,17 @@ export const TodoList = ({data, deleteItem}) => {
     }
 
     useEffect(() => {
-        // console.log(elementHeight.current.clientHeight)
-    }, [isActive])
+        // console.log(todoItemRef.current.getBoundingClientRect().height)
+    }, [isEditing])
 
     return <section className="todo-list">
         {data.map((item,) => {
             const {id, title, text} = item
             return <div key={id} className="todo-item" 
-                        ref={elementHeight}>
+                        ref={elementHeightRef}>
                     <header className="item-header">
-                        <h1 className="title">{title}</h1>
+                        <h1 className="title"
+                            onClick={() => showInput(id)}>{title}</h1>
                         <div className="btns">
                             <button className="edit-btn" 
                                 onClick={() => showInput(id)} >
@@ -38,6 +39,17 @@ export const TodoList = ({data, deleteItem}) => {
                             </button>
                         </div>
                     </header>
+                    {isEditing && id===curentItemID ? 
+                                (<form onSubmit={() => editItem(id, newText)}>
+                                    <textarea className="new-input" value={newText} 
+                                        onChange={(e) => setNewText(e.target.value)}></textarea>
+                                    <button className="save-btn" type="submit">
+                                        Save
+                                    </button>
+                                </form>)
+                                : (<p className="text">{text}</p>)
+                    }
+                    
                     {/* pirvel rigshi amotsmebs aris tu ara todo item actiuri, id-is sashualebit ( achvenebs <p> an "" )
                         shemdeg amotsmebs editi chartulia tu ara shesabamisi itemistvis
                         tu chartulia achvenebs <form>-s tu ara da <p>-s */}
@@ -52,16 +64,6 @@ export const TodoList = ({data, deleteItem}) => {
                                 :(<p className="text">{text}</p>)
                             : ""
                     } */}
-                    {isEditing && id===curentItemID ? 
-                                (<form onSubmit={() => editItem(id, newText)}>
-                                    <textarea className="new-input" value={newText} 
-                                        onChange={(e) => setNewText(e.target.value)}></textarea>
-                                    <button className="save-btn" type="submit">
-                                        Save
-                                    </button>
-                                </form>)
-                                : (<p className="text">{text}</p>)
-                    }
             </div>
         })}
     </section>

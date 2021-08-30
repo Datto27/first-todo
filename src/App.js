@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useGlobalContext } from "./context";
 import { TodoList } from "./TodoList";
 
-const getData = () => {
-  const localData = localStorage.getItem("myData")
-  return localData ? JSON.parse(localData) : []
-}
 
 function App() {
-  const [data, setData] = useState(getData)
-  const [title, setTitle] = useState("")
-  const [text, setText] = useState("")
+  const {data, setData,
+        title, setTitle,
+        text, setText} = useGlobalContext()
+  
   // form submit
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -28,11 +26,12 @@ function App() {
   useEffect(() => {
     // use local storage
     localStorage.setItem("myData", JSON.stringify(data))
-    console.log(data)
+    // console.log(data)
   }, [data])
 
   return (
     <main className="main-section">
+      <h1 className="main-title">your TodoList</h1>
       <form className="todo-form" onSubmit={handleSubmit} >
         <input className="title-input" placeholder="title" value={title} 
           onChange={(e) => setTitle(e.target.value)}/>

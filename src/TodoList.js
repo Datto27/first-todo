@@ -3,8 +3,7 @@ import {AiFillDelete, AiFillEdit} from "react-icons/ai"
 import { useGlobalContext } from "./context"
 
 export const TodoList = ({data, deleteItem}) => {
-    const {editItem, isEditing, setIsEditing,
-            isActive, setIsActive} = useGlobalContext()
+    const {editItem, isEditing, setIsEditing} = useGlobalContext()
     const [curentItemID, setCurrentItemID] = useState("")
     const [selectItemID, setSelectItemID] = useState("")
     const [newText, setNewText] = useState("")
@@ -54,7 +53,6 @@ export const TodoList = ({data, deleteItem}) => {
                                     : (<p className="text">{text}</p>)
                         }
                     </div>}
-                    {console.log(selectItemID, id)}
                     
                     {/* pirvel rigshi amotsmebs aris tu ara todo item actiuri, id-is sashualebit ( achvenebs <p> an "" )
                         shemdeg amotsmebs editi chartulia tu ara shesabamisi itemistvis

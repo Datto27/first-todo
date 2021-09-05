@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useGlobalContext } from "./context";
 import { TodoList } from "./TodoList";
-
+import logo from "./yourNote.svg"
 
 function App() {
   const {data, setData,
@@ -31,7 +31,7 @@ function App() {
 
   return (
     <main className="main-section">
-      <h1 className="main-title">your TodoList</h1>
+      <img className="main-title" src={logo} alt="logo" />
       <form className="todo-form" onSubmit={handleSubmit} >
         <input className="title-input" placeholder="title" value={title} 
           onChange={(e) => setTitle(e.target.value)}/>
